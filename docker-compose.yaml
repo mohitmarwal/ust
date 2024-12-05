@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  machine:
+    image: machine-service:latest  # Replace with your machine service image
+    container_name: machine-service
+    ports:
+      - "8081:8081"  # Expose port 8081
+    networks:
+      - machine-network
+    environment:
+      - SERVICE_NAME=machine
+      - SERVICE_PORT=8081
+
+  repair:
+    image: repair-service:latest  # Replace with your repair service image
+    container_name: repair-service
+    ports:
+      - "8082:8082"  # Expose port 8082
+    networks:
+      - machine-network
+    environment:
+      - SERVICE_NAME=repair
+      - SERVICE_PORT=8082
+
+  session:
+    image: session-service:latest  # Replace with your session service image
+    container_name: session-service
+    ports:
+      - "8083:8083"  # Expose port 8083
+    networks:
+      - machine-network
+    environment:
+      - SERVICE_NAME=session
+      - SERVICE_PORT=8083
+
+  machine-feeds:
+    image: machine-feeds-service:latest  # Replace with your machine feeds service image
+    container_name: machine-feeds-service
+    ports:
+      - "8080:8080"  # Expose port 8080
+    networks:
+      - machine-network
+    environment:
+      - SERVICE_NAME=machine-feeds
+      - SERVICE_PORT=8080
+
+networks:
+  machine-network:
+    driver: bridge
